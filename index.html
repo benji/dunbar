@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="jquery-2.1.4.min.js"></script>
+    <script src="jquery.flot.js"></script>
+    <script src="jquery.flot.symbol.js"></script>
+    <script src="data.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="container">
+      <div id="dunbar-graph"></div>
+      <p>Dunbar, "Neocortex size as a constraint on group size in primates", 1992.</p>
+    </div>
+<script>
+var n = species.length
+
+var lemurdata = []
+var monkeydata = []
+var apedata = []
+var humandata = []
+
+for (var i=0 ; i<n ; i++) {
+  var ncr = species[i].neocortexratio
+  var gs = species[i].groupsize
+  var type = species[i].type
+  if (ncr!=null && gs!=null) {
+    if (type == 'P') lemurdata.push( [ncr , gs] )
+    if (type == 'M') monkeydata.push( [ncr , gs] )
+    if (type == 'A') apedata.push( [ncr , gs] )
+    if (type == 'H') humandata.push( [ncr , gs] )
+  }
+}
+
+var graph = []
+graph.push({ data: lemurdata, points: { symbol: "circle" } })
+graph.push({ data: monkeydata, points: { symbol: "cross" } })
+graph.push({ data: apedata, points: { symbol: "triangle" } })
+graph.push({ data: humandata, points: { symbol: "diamond" } })
+
+$.plot("#dunbar-graph", graph, {
+  colors: ['#000'],
+  series: {
+	  points: { show: true, radius: 3 }
+  },
+  grid: {
+    hoverable: true,
+    markings: [
+      { color: '#000', lineWidth: 1, xaxis: { from: 4.1, to: 4.1 } },
+      { color: '#000', lineWidth: 1, yaxis: { from: 100, to: 100 } },
+      { color: '#000', lineWidth: 1, yaxis: { from: 230, to: 230 } },
+    ]
+  },
+  xaxis: { min: 0, max: 5 },
+  yaxis: {
+    min:0.1,
+    ticks: [0.1,1,10,100,1000],
+    transform:  function(v) {
+      return Math.log(v+0.0001); /*move away from zero*/
+    },
+    tickDecimals: 1
+  }
+});
+
+</script>
+  </body>
+</html>
+      
