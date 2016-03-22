@@ -33,12 +33,17 @@ for (var i=0 ; i<n ; i++) {
 }
 
 var graph = []
-graph.push({ data: lemurdata, points: { symbol: "circle" } })
+//graph.push({ data: lemurdata, points: { symbol: "circle" } })
 graph.push({ data: monkeydata, points: { symbol: "cross" } })
 graph.push({ data: apedata, points: { symbol: "triangle" } })
 graph.push({ data: humandata, points: { symbol: "diamond" } })
 
-$.plot("#dunbar-graph", graph, {
+// legend
+graph.push({ data: [[1.2,700]], points: { symbol: "cross" } })
+graph.push({ data: [[1.2,530]], points: { symbol: "triangle" } })
+graph.push({ data: [[1.2,400]], points: { symbol: "diamond" } })
+
+var p = $.plot("#dunbar-graph", graph, {
   colors: ['#000'],
   series: {
 	  points: { show: true, radius: 3 }
@@ -53,8 +58,8 @@ $.plot("#dunbar-graph", graph, {
   },
   xaxis: { min: 0, max: 5 },
   yaxis: {
-    min:0.1,
-    ticks: [0.1,1,10,100,1000],
+    min:1,
+    ticks: [0.1,1,10,100,230,1000],
     transform:  function(v) {
       return Math.log(v+0.0001); /*move away from zero*/
     },
@@ -62,6 +67,23 @@ $.plot("#dunbar-graph", graph, {
   }
 });
 
+$('<div class="data-point-label">Monkeys</div>').css( {
+  position: 'absolute',
+  left: 155,
+  top: 25
+}).appendTo(p.getPlaceholder());
+
+$('<div class="data-point-label">Apes</div>').css( {
+  position: 'absolute',
+  left: 155,
+  top: 45
+}).appendTo(p.getPlaceholder());
+
+$('<div class="data-point-label">Humans</div>').css( {
+  position: 'absolute',
+  left: 155,
+  top: 65
+}).appendTo(p.getPlaceholder());
 </script>
   </body>
 </html>
