@@ -5,4 +5,4 @@ Web tool to plot the data from anthropologist Robin Dunbar's research paper:
 
 ![](https://raw.github.com/benji/dunbar/master/dunbar.png)
 
-@see [demo](http://graphitfor.me/poc/dunbar/).
+@see [demo](http://graphitfor.me/poc/dunbar/index.html).
